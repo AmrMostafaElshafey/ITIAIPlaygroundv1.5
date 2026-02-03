@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('User Registration')}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container narrow">
+    <h1>User Registration</h1>
+    <p>Register as a Student or Staff member and submit proof for eligibility review.</p>
+
+    <div class="notice" th:if="${submitted}">
+        Your registration request has been submitted and is pending approval.
+    </div>
+
+    <form class="form" th:action="@{/register}" th:object="${request}" method="post" enctype="multipart/form-data">
+        <label>Full Name
+            <input type="text" th:field="*{fullName}" placeholder="Full name" required />
+        </label>
+        <label>Email Address
+            <input type="email" th:field="*{email}" placeholder="name@iti.gov.eg" required />
+        </label>
+        <label>Role
+            <select th:field="*{role}" required>
+                <option value="" disabled selected>Select role</option>
+                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+            </select>
+        </label>
+        <label>Personal Photo
+            <input type="file" name="photoFile" accept="image/*" required />
+        </label>
+        <label>Work/Student ID
+            <input type="file" name="workIdFile" accept="image/*,application/pdf" required />
+        </label>
+        <button class="btn primary" type="submit">Submit Registration</button>
+    </form>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
