@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${title})}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container">
+    <h1 th:text="${title}"></h1>
+    <section class="grid">
+        <div class="card highlight">
+            <h3 th:text="${pending}">0</h3>
+            <p>Pending requests</p>
+        </div>
+        <div class="card">
+            <h3 th:text="${approvedThisWeek}">0</h3>
+            <p>Approved this week</p>
+        </div>
+        <div class="card">
+            <h3 th:text="${rejectedThisWeek}">0</h3>
+            <p>Rejected this week</p>
+        </div>
+    </section>
+    <section class="card">
+        <h2>Approval Queue</h2>
+        <p>Review access requests to ensure policy compliance before approvals.</p>
+        <button class="btn primary" type="button">Open Review Queue</button>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

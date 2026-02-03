@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Login')}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container narrow">
+    <h1>Login</h1>
+    <p>Sign in to request AI services.</p>
+
+    <form class="form" th:action="@{/login}" method="post">
+        <label>Email Address
+            <input type="email" name="email" placeholder="name@iti.gov.eg" required />
+        </label>
+        <label>Password
+            <input type="password" name="password" placeholder="••••••••" required />
+        </label>
+        <button class="btn primary" type="submit">Sign In</button>
+    </form>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
