@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Admin Services')}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container">
+    <div class="page-header">
+        <h1>AI Services</h1>
+        <a class="btn primary" th:href="@{/admin/services/new}">Add Service</a>
+    </div>
+
+    <div class="table">
+        <div class="table-row header">
+            <div>Name</div>
+            <div>Owner</div>
+            <div>Category</div>
+            <div>Status</div>
+            <div>Actions</div>
+        </div>
+        <div class="table-row" th:each="service : ${services}">
+            <div th:text="${service.name}">Service Name</div>
+            <div th:text="${service.ownerName}">Owner</div>
+            <div th:text="${service.category}">Category</div>
+            <div th:text="${service.status}">Status</div>
+            <div class="actions">
+                <a class="link" th:href="@{'/admin/services/' + ${service.id} + '/edit'}">Edit</a>
+                <form th:action="@{'/admin/services/' + ${service.id} + '/delete'}" method="post">
+                    <button class="link" type="submit">Soft Delete</button>
+                </form>
+            </div>
+        </div>
+        <div class="empty" th:if="${#lists.isEmpty(services)}">
+            No services yet. Use “Add Service” to create one.
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

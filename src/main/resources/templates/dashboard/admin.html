@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${title})}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container">
+    <h1 th:text="${title}"></h1>
+    <section class="grid">
+        <div class="card highlight">
+            <h3 th:text="${serviceCount}">0</h3>
+            <p>Active AI services</p>
+        </div>
+        <div class="card">
+            <h3 th:text="${pendingApprovals}">0</h3>
+            <p>Pending approvals</p>
+        </div>
+        <div class="card">
+            <h3 th:text="${activeUsers}">0</h3>
+            <p>Active users this month</p>
+        </div>
+    </section>
+    <section class="card">
+        <h2>Governance Insights</h2>
+        <ul>
+            <li>Policy acknowledgments are at 92% compliance.</li>
+            <li>Average approval time: 2.4 days.</li>
+            <li>Soft-deleted records retained for audit.</li>
+        </ul>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
