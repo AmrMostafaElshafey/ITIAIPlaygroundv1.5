@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Service Form')}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container narrow">
+    <h1 th:text="${service.id != null ? 'Edit Service' : 'New Service'}"></h1>
+    <form class="form" th:action="${service.id != null ? '/admin/services/' + service.id : '/admin/services'}" th:object="${service}" method="post">
+        <label>Service Name
+            <input type="text" th:field="*{name}" placeholder="AI Tutor" required />
+        </label>
+        <label>Owner Name
+            <input type="text" th:field="*{ownerName}" placeholder="AI Governance Team" required />
+        </label>
+        <label>Category
+            <input type="text" th:field="*{category}" placeholder="Education" />
+        </label>
+        <label>Status
+            <input type="text" th:field="*{status}" placeholder="Active" />
+        </label>
+        <label>Eligibility
+            <select th:field="*{eligibility}">
+                <option value="STUDENT">Student</option>
+                <option value="STAFF">Staff</option>
+                <option value="BOTH">Both</option>
+            </select>
+        </label>
+        <label>Description
+            <textarea th:field="*{description}" rows="4" placeholder="Describe the service and its usage policy."></textarea>
+        </label>
+        <button class="btn primary" type="submit">Save</button>
+        <a class="btn outline" th:href="@{/admin/services}">Cancel</a>
+    </form>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

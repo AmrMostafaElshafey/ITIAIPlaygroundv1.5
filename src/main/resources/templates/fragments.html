@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="head(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">ITI AI Playground</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</div>
+
+<header th:fragment="header">
+    <nav class="navbar">
+        <div class="brand">ITI AI Playground</div>
+        <div class="nav-links">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/setup}">Setup Wizard</a>
+            <a th:href="@{/setup/services}">Service Setup</a>
+            <a th:href="@{/register}">User Registration</a>
+            <a th:if="${session.loggedIn == true}" th:href="@{/service-requests/new}">Service Request</a>
+            <a th:href="@{/policy}">Policy</a>
+            <a th:if="${session.userRole == 'ADMIN'}" th:href="@{/admin/services}">Admin CRUD</a>
+            <a th:if="${session.userRole == 'ADMIN'}" th:href="@{/admin/registrations}">Registration Approvals</a>
+            <a th:if="${session.userRole == 'ADMIN'}" th:href="@{/admin/service-requests}">Service Requests</a>
+            <a th:if="${session.userRole == 'APPROVER'}" th:href="@{/approver/registrations}">Approver Queue</a>
+            <a th:if="${session.userRole == 'APPROVER'}" th:href="@{/approver/service-requests}">Approver Requests</a>
+            <a th:if="${session.userRole == 'ADMIN'}" th:href="@{/dashboard/admin}">Admin Dashboard</a>
+            <a th:if="${session.userRole == 'SERVICE_OWNER'}" th:href="@{/dashboard/service-owner}">Service Owner Dashboard</a>
+        </div>
+        <div class="theme-switcher">
+            <label for="theme-select">Theme</label>
+            <select id="theme-select" aria-label="Select color theme">
+                <option value="iti">ITI Blue</option>
+                <option value="emerald">Emerald</option>
+                <option value="slate">Slate</option>
+            </select>
+        </div>
+    </nav>
+</header>
+
+<footer th:fragment="footer">
+    <div class="footer">
+        <p>© 2024 ITI AI Playground • Governance-ready AI service catalog.</p>
+    </div>
+    <script th:src="@{/js/theme-switcher.js}"></script>
+</footer>
+</body>
+</html>

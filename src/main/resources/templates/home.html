@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('ITI AI Playground')}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container">
+    <section class="hero">
+        <div>
+            <h1 th:text="${config.heroTitle != null ? config.heroTitle : 'Governed AI Services for ITI'}"></h1>
+            <p th:text="${config.heroSubtitle != null ? config.heroSubtitle : 'Centralize AI service discovery, approvals, and compliance in one secure platform.'}"></p>
+            <div class="hero-actions">
+                <a class="btn primary" th:href="${config.heroCtaUrl != null ? config.heroCtaUrl : '/dashboard/admin'}"
+                   th:text="${config.heroCtaLabel != null ? config.heroCtaLabel : 'Open Dashboards'}"></a>
+                <a class="btn outline" th:href="@{/setup}">Run Setup Wizard</a>
+            </div>
+        </div>
+        <div class="hero-card">
+            <h3>Platform Highlights</h3>
+            <ul>
+                <li>RBAC dashboards for Admin, Service Owner, and Approver roles.</li>
+                <li>Structured access request workflows and audit-ready logs.</li>
+                <li>Soft delete data retention for governance compliance.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="grid">
+        <div class="card">
+            <h4>Catalog & Services</h4>
+            <p>Manage AI service metadata, owners, and policies with full CRUD controls.</p>
+        </div>
+        <div class="card">
+            <h4>Approval Workflows</h4>
+            <p>Track submissions, approvals, and policy acknowledgments across teams.</p>
+        </div>
+        <div class="card">
+            <h4>Reporting</h4>
+            <p>Role-specific dashboards highlight activity, pending actions, and trends.</p>
+        </div>
+    </section>
+
+    <section class="about">
+        <h2>About ITI AI Playground</h2>
+        <p th:text="${config.aboutText != null ? config.aboutText : 'The ITI AI Playground provides governed access to AI services aligned with ITI/MCIT policies and ethical AI standards.'}"></p>
+        <div class="contact">
+            <span>Contact:</span>
+            <a th:href="${config.contactEmail != null ? 'mailto:' + config.contactEmail : 'mailto:ai-governance@iti.gov.eg'}"
+               th:text="${config.contactEmail != null ? config.contactEmail : 'ai-governance@iti.gov.eg'}"></a>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>ITI AI Policy Highlights</h2>
+        <ul>
+            <li>AI augments learning and operations but does not replace human oversight.</li>
+            <li>Users must acknowledge policies before accessing regulated services.</li>
+            <li>Sensitive data must not be uploaded to external AI systems.</li>
+            <li>Human review is required for AI-assisted outputs.</li>
+        </ul>
+        <a class="link" th:href="@{/policy}">Read the complete ITI AI Usage Policy</a>
+    </section>
+
+    <section class="services">
+        <div class="page-header">
+            <h2>Available AI Services</h2>
+            <a class="btn outline" th:href="${session.loggedIn == true ? '/service-requests/new' : '/login?redirect=/service-requests/new'}">
+                Request a Service
+            </a>
+        </div>
+        <div class="grid">
+            <div class="card" th:each="service : ${services}">
+                <h4 th:text="${service.name}">Service Name</h4>
+                <p th:text="${service.description}">Service description.</p>
+                <p><strong>Eligibility:</strong> <span th:text="${service.eligibility}">Both</span></p>
+                <a class="link"
+                   th:href="${session.loggedIn == true ? '/service-requests/new?serviceName=' + service.name : '/login?redirect=' + '/service-requests/new?serviceName=' + service.name}">Request Service</a>
+            </div>
+            <div class="empty" th:if="${#lists.isEmpty(services)}">
+                Services will appear here once added by administrators.
+            </div>
+        </div>
+    </section>
+
+    <section class="notice" th:if="${!hasConfig}">
+        <strong>Setup Required:</strong> Use the setup wizard to load the initial home page content.
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

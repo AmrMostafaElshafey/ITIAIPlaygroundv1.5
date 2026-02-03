@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Setup Wizard')}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container narrow">
+    <h1>Setup Wizard</h1>
+    <p>Configure the content that appears on the public home page.</p>
+
+    <form class="form" th:action="@{/setup}" th:object="${config}" method="post">
+        <label>Hero Title
+            <input type="text" th:field="*{heroTitle}" placeholder="Governed AI Services for ITI" />
+        </label>
+        <label>Hero Subtitle
+            <input type="text" th:field="*{heroSubtitle}" placeholder="Centralize AI service discovery and compliance." />
+        </label>
+        <label>Hero Button Label
+            <input type="text" th:field="*{heroCtaLabel}" placeholder="Open Dashboards" />
+        </label>
+        <label>Hero Button URL
+            <input type="text" th:field="*{heroCtaUrl}" placeholder="/dashboard/admin" />
+        </label>
+        <label>About Text
+            <textarea th:field="*{aboutText}" rows="4" placeholder="Describe the ITI AI Playground mission."></textarea>
+        </label>
+        <label>Contact Email
+            <input type="email" th:field="*{contactEmail}" placeholder="ai-governance@iti.gov.eg" />
+        </label>
+        <button class="btn primary" type="submit">Save Setup</button>
+    </form>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
