@@ -235,6 +235,11 @@ a {
     margin-top: 2.5rem;
 }
 
+.services-grid,
+.prompt-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .form {
     display: grid;
     gap: 1rem;
@@ -343,6 +348,10 @@ small {
     grid-template-columns: repeat(6, 1fr);
 }
 
+.table-row.seven {
+    grid-template-columns: repeat(7, 1fr);
+}
+
 .table-row.header {
     background: var(--background);
     font-weight: 700;
@@ -379,6 +388,11 @@ small {
     .table-row {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .services-grid,
+    .prompt-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 600px) {
@@ -392,6 +406,11 @@ small {
     }
 
     .table-row {
+        grid-template-columns: 1fr;
+    }
+
+    .services-grid,
+    .prompt-grid {
         grid-template-columns: 1fr;
     }
 }

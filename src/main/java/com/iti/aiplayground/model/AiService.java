@@ -25,6 +25,8 @@ public class AiService extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ServiceEligibility eligibility = ServiceEligibility.BOTH;
 
+    private boolean publishOnHome = true;
+
     public String getName() {
         return name;
     }
@@ -71,5 +73,13 @@ public class AiService extends BaseEntity {
 
     public void setEligibility(ServiceEligibility eligibility) {
         this.eligibility = eligibility;
+    }
+
+    public boolean isPublishOnHome() {
+        return publishOnHome;
+    }
+
+    public void setPublishOnHome(boolean publishOnHome) {
+        this.publishOnHome = publishOnHome;
     }
 }

@@ -18,6 +18,10 @@ public class AiServiceService {
         return repository.findAll();
     }
 
+    public List<AiService> findPublished() {
+        return repository.findByPublishOnHomeTrue();
+    }
+
     public Optional<AiService> findById(Long id) {
         return repository.findById(id);
     }

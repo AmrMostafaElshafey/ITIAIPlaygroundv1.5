@@ -5,15 +5,12 @@
 <div th:replace="~{fragments :: header}"></div>
 
 <main class="container narrow">
-    <h1>ITI AI Usage Policy</h1>
-    <p>This page provides the complete ITI AI usage policy summary for staff and students.</p>
-    <ul class="policy-list">
-        <li>AI augments but does not replace teaching or decision-making responsibilities.</li>
-        <li>Users must acknowledge AI usage policies before submitting service requests.</li>
-        <li>Do not upload or share sensitive data with external AI systems.</li>
-        <li>Human oversight is mandatory for AI-assisted outputs.</li>
-        <li>Policy violations are subject to audit and enforcement actions.</li>
-    </ul>
+    <h1 th:text="${policy.title != null ? policy.title : 'ITI AI Usage Policy'}"></h1>
+    <p th:text="${policy.summary != null ? policy.summary : 'This page provides the complete ITI AI usage policy summary for staff and students.'}"></p>
+    <div class="notice" th:if="${policy.linkUrl == null}">
+        Policy link is not yet configured. Use the installation wizard to set the policy details.
+    </div>
+    <a class="link" th:if="${policy.linkUrl != null}" th:href="${policy.linkUrl}">Open Full Policy Document</a>
 </main>
 
 <div th:replace="~{fragments :: footer}"></div>

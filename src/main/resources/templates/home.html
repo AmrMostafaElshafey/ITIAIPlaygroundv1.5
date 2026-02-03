@@ -40,25 +40,27 @@
         </div>
     </section>
 
-    <section class="about">
-        <h2>About ITI AI Playground</h2>
-        <p th:text="${config.aboutText != null ? config.aboutText : 'The ITI AI Playground provides governed access to AI services aligned with ITI/MCIT policies and ethical AI standards.'}"></p>
-        <div class="contact">
-            <span>Contact:</span>
-            <a th:href="${config.contactEmail != null ? 'mailto:' + config.contactEmail : 'mailto:ai-governance@iti.gov.eg'}"
-               th:text="${config.contactEmail != null ? config.contactEmail : 'ai-governance@iti.gov.eg'}"></a>
-        </div>
+    <section class="card policy-card">
+        <h2 th:text="${policy.title != null ? policy.title : 'ITI AI Usage Policy'}"></h2>
+        <p th:text="${policy.summary != null ? policy.summary : 'Review the ITI AI usage policy to understand compliance, human oversight, and data handling expectations.'}"></p>
+        <a class="link" th:href="${policy.linkUrl != null ? policy.linkUrl : '/policy'}">Read the complete ITI AI Usage Policy</a>
     </section>
 
-    <section class="card">
-        <h2>ITI AI Policy Highlights</h2>
-        <ul>
-            <li>AI augments learning and operations but does not replace human oversight.</li>
-            <li>Users must acknowledge policies before accessing regulated services.</li>
-            <li>Sensitive data must not be uploaded to external AI systems.</li>
-            <li>Human review is required for AI-assisted outputs.</li>
-        </ul>
-        <a class="link" th:href="@{/policy}">Read the complete ITI AI Usage Policy</a>
+    <section class="card prompt-library">
+        <div class="page-header">
+            <h2>Prompt Library by Learning Department</h2>
+            <a class="btn outline" th:href="@{/setup/install}">Manage Prompt Library</a>
+        </div>
+        <div class="grid prompt-grid">
+            <div class="card" th:each="prompt : ${prompts}">
+                <h4 th:text="${prompt.title}">Prompt Title</h4>
+                <p th:text="${prompt.promptText}">Prompt description.</p>
+                <p><strong>Department:</strong> <span th:text="${prompt.department != null ? prompt.department.name : 'General'}"></span></p>
+            </div>
+            <div class="empty" th:if="${#lists.isEmpty(prompts)}">
+                Prompt library items will appear here once added by administrators.
+            </div>
+        </div>
     </section>
 
     <section class="services">
@@ -68,7 +70,7 @@
                 Request a Service
             </a>
         </div>
-        <div class="grid">
+        <div class="grid services-grid">
             <div class="card" th:each="service : ${services}">
                 <h4 th:text="${service.name}">Service Name</h4>
                 <p th:text="${service.description}">Service description.</p>
@@ -79,6 +81,16 @@
             <div class="empty" th:if="${#lists.isEmpty(services)}">
                 Services will appear here once added by administrators.
             </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <h2>About ITI AI Playground</h2>
+        <p th:text="${config.aboutText != null ? config.aboutText : 'The ITI AI Playground provides governed access to AI services aligned with ITI/MCIT policies and ethical AI standards.'}"></p>
+        <div class="contact">
+            <span>Contact:</span>
+            <a th:href="${config.contactEmail != null ? 'mailto:' + config.contactEmail : 'mailto:ai-governance@iti.gov.eg'}"
+               th:text="${config.contactEmail != null ? config.contactEmail : 'ai-governance@iti.gov.eg'}"></a>
         </div>
     </section>
 

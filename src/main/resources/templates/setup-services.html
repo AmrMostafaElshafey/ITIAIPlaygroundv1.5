@@ -35,6 +35,12 @@
         <label>Description
             <textarea th:field="*{description}" rows="4" placeholder="Describe the service and its usage policy."></textarea>
         </label>
+        <label>Publish on Home Page
+            <select th:field="*{publishOnHome}">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </label>
         <button class="btn primary" type="submit">Add Service</button>
     </form>
 

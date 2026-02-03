@@ -36,6 +36,7 @@ Then visit:
 - `http://localhost:8080/` (home page)
 - `http://localhost:8080/setup` (setup wizard)
 - `http://localhost:8080/setup/services` (service setup wizard)
+- `http://localhost:8080/setup/install` (installation wizard)
 - `http://localhost:8080/admin/services` (admin CRUD)
 - `http://localhost:8080/register` (user registration)
 - `http://localhost:8080/admin/registrations` (admin registration approvals)
