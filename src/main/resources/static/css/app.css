@@ -231,6 +231,10 @@ a {
     border: 1px solid #ffe0a6;
 }
 
+.services {
+    margin-top: 2.5rem;
+}
+
 .form {
     display: grid;
     gap: 1rem;

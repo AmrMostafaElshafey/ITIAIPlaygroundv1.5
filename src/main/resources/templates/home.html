@@ -50,6 +50,36 @@
         </div>
     </section>
 
+    <section class="card">
+        <h2>ITI AI Policy Highlights</h2>
+        <ul>
+            <li>AI augments learning and operations but does not replace human oversight.</li>
+            <li>Users must acknowledge policies before accessing regulated services.</li>
+            <li>Sensitive data must not be uploaded to external AI systems.</li>
+            <li>Human review is required for AI-assisted outputs.</li>
+        </ul>
+    </section>
+
+    <section class="services">
+        <div class="page-header">
+            <h2>Available AI Services</h2>
+            <a class="btn outline" th:href="${session.loggedIn == true ? '/service-requests/new' : '/login'}">
+                Request a Service
+            </a>
+        </div>
+        <div class="grid">
+            <div class="card" th:each="service : ${services}">
+                <h4 th:text="${service.name}">Service Name</h4>
+                <p th:text="${service.description}">Service description.</p>
+                <a class="link"
+                   th:href="${session.loggedIn == true ? '/service-requests/new' : '/login'}">Request Service</a>
+            </div>
+            <div class="empty" th:if="${#lists.isEmpty(services)}">
+                Services will appear here once added by administrators.
+            </div>
+        </div>
+    </section>
+
     <section class="notice" th:if="${!hasConfig}">
         <strong>Setup Required:</strong> Use the setup wizard to load the initial home page content.
     </section>
