@@ -8,12 +8,22 @@
     <h1>Login</h1>
     <p>Sign in to request AI services.</p>
 
+    <div class="notice" th:if="${error}">
+        <strong th:text="${error}"></strong>
+    </div>
+
     <form class="form" th:action="@{/login}" method="post">
         <label>Email Address
             <input type="email" name="email" placeholder="name@iti.gov.eg" required />
         </label>
         <label>Password
             <input type="password" name="password" placeholder="••••••••" required />
+        </label>
+        <label>Role
+            <select name="role" required>
+                <option value="" disabled selected>Select role</option>
+                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+            </select>
         </label>
         <button class="btn primary" type="submit">Sign In</button>
     </form>

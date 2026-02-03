@@ -23,11 +23,19 @@ public class ServiceRequestService {
         return repository.findAll();
     }
 
+    public List<ServiceRequest> findAllOrdered() {
+        return repository.findAllByOrderByStatusAscRequestDateDesc();
+    }
+
     public Optional<ServiceRequest> findById(Long id) {
         return repository.findById(id);
     }
 
     public List<ServiceRequest> findPending() {
         return repository.findByStatus(ApprovalStatus.PENDING);
+    }
+
+    public long countByStatus(ApprovalStatus status) {
+        return repository.countByStatus(status);
     }
 }

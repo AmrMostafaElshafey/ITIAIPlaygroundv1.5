@@ -2,6 +2,7 @@ package com.iti.aiplayground.service;
 
 import com.iti.aiplayground.model.ApprovalStatus;
 import com.iti.aiplayground.model.RegistrationRequest;
+import com.iti.aiplayground.model.UserRole;
 import com.iti.aiplayground.repository.RegistrationRequestRepository;
 import java.util.List;
 import java.util.Optional;
@@ -29,5 +30,9 @@ public class RegistrationRequestService {
 
     public Optional<RegistrationRequest> findById(Long id) {
         return repository.findById(id);
+    }
+
+    public Optional<RegistrationRequest> findApprovedByEmailAndRole(String email, UserRole role) {
+        return repository.findByEmailAndStatusAndRole(email, ApprovalStatus.APPROVED, role);
     }
 }

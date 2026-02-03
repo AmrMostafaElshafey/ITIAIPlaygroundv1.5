@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments :: head('Service Request Review')}" />
+<head th:replace="~{fragments :: head(${title})}" />
 <body class="theme-iti">
 <div th:replace="~{fragments :: header}"></div>
 
 <main class="container">
-    <h1>Service Request Review Queue</h1>
+    <h1 th:text="${title}">Service Request Review Queue</h1>
     <div class="table">
-        <div class="table-row header">
+        <div class="table-row header six">
             <div>Requester</div>
             <div>Service</div>
             <div>Status</div>
+            <div>Request Date</div>
             <div>Notes</div>
             <div>Actions</div>
         </div>
-        <div class="table-row" th:each="request : ${requests}">
+        <div class="table-row six" th:each="request : ${requests}">
             <div>
                 <div th:text="${request.registrationRequest.fullName}"></div>
                 <small th:text="${request.registrationRequest.role}"></small>
             </div>
             <div th:text="${request.serviceName}"></div>
             <div th:text="${request.status}"></div>
-            <div th:text="${request.requestNotes}"></div>
+            <div th:text="${request.requestDate}"></div>
+            <div>
+                <div th:text="${request.requestNotes}"></div>
+                <small th:text="${request.accessLimits}"></small>
+                <small th:text="${request.startDate + ' → ' + request.endDate}"></small>
+            </div>
             <div class="actions">
-                <form th:action="@{'/service-owner/service-requests/' + ${request.id} + '/approve'}" method="post">
+                <form th:action="@{${basePath} + '/' + ${request.id} + '/approve'}" method="post">
                     <input type="text" name="reviewerNotes" placeholder="Notes" />
                     <button class="link" type="submit">Approve</button>
                 </form>
-                <form th:action="@{'/service-owner/service-requests/' + ${request.id} + '/reject'}" method="post">
+                <form th:action="@{${basePath} + '/' + ${request.id} + '/reject'}" method="post">
                     <input type="text" name="reviewerNotes" placeholder="Notes" />
                     <button class="link" type="submit">Reject</button>
                 </form>

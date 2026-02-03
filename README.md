@@ -5,8 +5,8 @@ Spring Boot web application that models the ITI AI Playground governance platfor
 - Home page setup wizard for foundational content displayed to guest users.
 - Role-based dashboards (Admin, Service Owner, Approver) with tailored data sets.
 - Admin CRUD for AI services using soft deletes (no physical removal).
-- Registration workflow for students/employees with document uploads and approval queue.
-- Service request submission for approved users with service owner review.
+- Registration workflow for students/staff with document uploads and approval queue.
+- Service request submission for approved users with admin/approver review and status tracking.
 - Responsive UI with ITI-inspired default color theme plus two additional professional themes and a switcher.
 
 ## Tech Stack
@@ -35,15 +35,23 @@ Then visit:
 
 - `http://localhost:8080/` (home page)
 - `http://localhost:8080/setup` (setup wizard)
+- `http://localhost:8080/setup/services` (service setup wizard)
 - `http://localhost:8080/admin/services` (admin CRUD)
 - `http://localhost:8080/register` (user registration)
 - `http://localhost:8080/admin/registrations` (admin registration approvals)
-- `http://localhost:8080/service-owner/registrations` (service owner registration approvals)
 - `http://localhost:8080/service-requests/new` (submit service request)
-- `http://localhost:8080/service-owner/service-requests` (service owner request review)
+- `http://localhost:8080/approver/registrations` (approver registration approvals)
+- `http://localhost:8080/admin/service-requests` (admin request review)
+- `http://localhost:8080/approver/service-requests` (approver request review)
+- `http://localhost:8080/policy` (ITI AI usage policy)
 - `http://localhost:8080/dashboard/admin`
 - `http://localhost:8080/dashboard/service-owner`
 - `http://localhost:8080/dashboard/approver`
+
+## Authentication Notes
+
+- Student and Staff users must have an approved registration request before logging in.
+- Admin, Service Owner, and Approver roles are available in the login form for demo purposes.
 
 ## Soft Delete Behavior
 

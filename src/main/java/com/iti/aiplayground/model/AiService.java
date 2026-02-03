@@ -2,6 +2,8 @@ package com.iti.aiplayground.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -19,6 +21,9 @@ public class AiService extends BaseEntity {
     private String description;
 
     private String status;
+
+    @Enumerated(EnumType.STRING)
+    private ServiceEligibility eligibility = ServiceEligibility.BOTH;
 
     public String getName() {
         return name;
@@ -58,5 +63,13 @@ public class AiService extends BaseEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public ServiceEligibility getEligibility() {
+        return eligibility;
+    }
+
+    public void setEligibility(ServiceEligibility eligibility) {
+        this.eligibility = eligibility;
     }
 }

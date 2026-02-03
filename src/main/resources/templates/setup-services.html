@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments :: head('Service Form')}" />
+<head th:replace="~{fragments :: head('Service Setup Wizard')}" />
 <body class="theme-iti">
 <div th:replace="~{fragments :: header}"></div>
 
-<main class="container narrow">
-    <h1 th:text="${service.id != null ? 'Edit Service' : 'New Service'}"></h1>
-    <form class="form" th:action="${service.id != null ? '/admin/services/' + service.id : '/admin/services'}" th:object="${service}" method="post">
+<main class="container">
+    <div class="page-header">
+        <div>
+            <h1>Service Setup Wizard</h1>
+            <p>Quickly add the initial AI services for ITI staff and students.</p>
+        </div>
+    </div>
+
+    <form class="form" th:action="@{/setup/services}" th:object="${service}" method="post">
         <label>Service Name
             <input type="text" th:field="*{name}" placeholder="AI Tutor" required />
         </label>
@@ -29,9 +35,22 @@
         <label>Description
             <textarea th:field="*{description}" rows="4" placeholder="Describe the service and its usage policy."></textarea>
         </label>
-        <button class="btn primary" type="submit">Save</button>
-        <a class="btn outline" th:href="@{/admin/services}">Cancel</a>
+        <button class="btn primary" type="submit">Add Service</button>
     </form>
+
+    <section class="services">
+        <h2>Current Services</h2>
+        <div class="grid">
+            <div class="card" th:each="existing : ${services}">
+                <h4 th:text="${existing.name}">Service Name</h4>
+                <p th:text="${existing.description}">Service description.</p>
+                <p><strong>Eligibility:</strong> <span th:text="${existing.eligibility}"></span></p>
+            </div>
+            <div class="empty" th:if="${#lists.isEmpty(services)}">
+                No services configured yet.
+            </div>
+        </div>
+    </section>
 </main>
 
 <div th:replace="~{fragments :: footer}"></div>

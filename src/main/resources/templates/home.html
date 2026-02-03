@@ -58,12 +58,13 @@
             <li>Sensitive data must not be uploaded to external AI systems.</li>
             <li>Human review is required for AI-assisted outputs.</li>
         </ul>
+        <a class="link" th:href="@{/policy}">Read the complete ITI AI Usage Policy</a>
     </section>
 
     <section class="services">
         <div class="page-header">
             <h2>Available AI Services</h2>
-            <a class="btn outline" th:href="${session.loggedIn == true ? '/service-requests/new' : '/login'}">
+            <a class="btn outline" th:href="${session.loggedIn == true ? '/service-requests/new' : '/login?redirect=/service-requests/new'}">
                 Request a Service
             </a>
         </div>
@@ -71,8 +72,9 @@
             <div class="card" th:each="service : ${services}">
                 <h4 th:text="${service.name}">Service Name</h4>
                 <p th:text="${service.description}">Service description.</p>
+                <p><strong>Eligibility:</strong> <span th:text="${service.eligibility}">Both</span></p>
                 <a class="link"
-                   th:href="${session.loggedIn == true ? '/service-requests/new' : '/login'}">Request Service</a>
+                   th:href="${session.loggedIn == true ? '/service-requests/new?serviceName=' + service.name : '/login?redirect=' + '/service-requests/new?serviceName=' + service.name}">Request Service</a>
             </div>
             <div class="empty" th:if="${#lists.isEmpty(services)}">
                 Services will appear here once added by administrators.

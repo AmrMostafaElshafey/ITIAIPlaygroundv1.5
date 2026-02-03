@@ -3,6 +3,7 @@ package com.iti.aiplayground.controller;
 import com.iti.aiplayground.model.ApprovalStatus;
 import com.iti.aiplayground.model.RegistrationRequest;
 import com.iti.aiplayground.service.RegistrationRequestService;
+import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,18 +23,24 @@ public class RegistrationReviewController {
     }
 
     @GetMapping("/admin/registrations")
-    public String adminList(Model model) {
+    public String adminList(Model model, HttpSession session) {
+        if (!isRole(session, "ADMIN")) {
+            return "redirect:/login";
+        }
         model.addAttribute("title", "Admin Registration Approvals");
         model.addAttribute("requests", registrationRequestService.findAll());
         model.addAttribute("basePath", "/admin/registrations");
         return "registration-review";
     }
 
-    @GetMapping("/service-owner/registrations")
-    public String ownerList(Model model) {
-        model.addAttribute("title", "Service Owner Registration Queue");
+    @GetMapping("/approver/registrations")
+    public String approverList(Model model, HttpSession session) {
+        if (!isRole(session, "APPROVER")) {
+            return "redirect:/login";
+        }
+        model.addAttribute("title", "Approver Registration Queue");
         model.addAttribute("requests", registrationRequestService.findAll());
-        model.addAttribute("basePath", "/service-owner/registrations");
+        model.addAttribute("basePath", "/approver/registrations");
         return "registration-review";
     }
 
@@ -62,5 +69,9 @@ public class RegistrationReviewController {
         record.setStatus(status);
         record.setReviewerNotes(notes);
         registrationRequestService.save(record);
+    }
+
+    private boolean isRole(HttpSession session, String role) {
+        return role.equals(session.getAttribute("userRole"));
     }
 }

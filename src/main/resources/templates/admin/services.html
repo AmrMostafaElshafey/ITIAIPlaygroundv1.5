@@ -11,18 +11,20 @@
     </div>
 
     <div class="table">
-        <div class="table-row header">
+        <div class="table-row header six">
             <div>Name</div>
             <div>Owner</div>
             <div>Category</div>
             <div>Status</div>
+            <div>Eligibility</div>
             <div>Actions</div>
         </div>
-        <div class="table-row" th:each="service : ${services}">
+        <div class="table-row six" th:each="service : ${services}">
             <div th:text="${service.name}">Service Name</div>
             <div th:text="${service.ownerName}">Owner</div>
             <div th:text="${service.category}">Category</div>
             <div th:text="${service.status}">Status</div>
+            <div th:text="${service.eligibility}">Eligibility</div>
             <div class="actions">
                 <a class="link" th:href="@{'/admin/services/' + ${service.id} + '/edit'}">Edit</a>
                 <form th:action="@{'/admin/services/' + ${service.id} + '/delete'}" method="post">
