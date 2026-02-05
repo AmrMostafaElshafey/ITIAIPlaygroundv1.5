@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${title})}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container">
+    <h1 th:text="${title}"></h1>
+    <div class="table">
+        <div class="table-row header">
+            <div>Name</div>
+            <div>Email</div>
+            <div>Role</div>
+            <div>Status</div>
+            <div>Actions</div>
+        </div>
+        <div class="table-row" th:each="request : ${requests}">
+            <div>
+                <div th:text="${request.fullName}"></div>
+                <small th:text="${request.photoPath}"></small>
+                <small th:text="${request.workIdPath}"></small>
+            </div>
+            <div th:text="${request.email}"></div>
+            <div th:text="${request.role}"></div>
+            <div th:text="${request.status}"></div>
+            <div class="actions">
+                <form th:action="@{${basePath} + '/' + ${request.id} + '/approve'}" method="post">
+                    <input type="text" name="reviewerNotes" placeholder="Notes" />
+                    <button class="link" type="submit">Approve</button>
+                </form>
+                <form th:action="@{${basePath} + '/' + ${request.id} + '/reject'}" method="post">
+                    <input type="text" name="reviewerNotes" placeholder="Notes" />
+                    <button class="link" type="submit">Reject</button>
+                </form>
+            </div>
+        </div>
+        <div class="empty" th:if="${#lists.isEmpty(requests)}">
+            No registration requests available.
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
