@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments :: head('ITI AI Usage Policy')}" />
-<body class="theme-iti">
+<body class="theme-iti academy-page">
 <div th:replace="~{fragments :: header}"></div>
 
-<main class="container narrow">
-    <h1 th:text="${policy.title != null ? policy.title : 'ITI AI Usage Policy'}"></h1>
-    <p th:text="${policy.summary != null ? policy.summary : 'This page provides the complete ITI AI usage policy summary for staff and students.'}"></p>
-    <div class="notice" th:if="${policy.linkUrl == null}">
-        Policy link is not yet configured. Use the installation wizard to set the policy details.
-    </div>
-    <a class="link" th:if="${policy.linkUrl != null}" th:href="${policy.linkUrl}">Open Full Policy Document</a>
+<main class="academy-container">
+    <section class="panel academy-hero">
+        <h1 th:text="${policy.title != null ? policy.title : 'ITI AI Usage Policy'}"></h1>
+        <p th:text="${policy.summary != null ? policy.summary : 'This page provides the complete ITI AI usage policy summary for staff and students.'}"></p>
+        <a class="btn cta" th:if="${policy.linkUrl != null}" th:href="${policy.linkUrl}">Open Full Policy Document</a>
+    </section>
+
+    <section class="two-col">
+        <article class="panel">
+            <h2>Core Principles</h2>
+            <ul>
+                <li>Transparency in all AI-assisted workflows.</li>
+                <li>Accountability by instructors and administrators.</li>
+                <li>Privacy & security by default.</li>
+                <li>Continuous human oversight.</li>
+            </ul>
+        </article>
+        <article class="panel">
+            <h2>Student & Staff Responsibilities</h2>
+            <ul>
+                <li>Acknowledge the policy before service usage.</li>
+                <li>Avoid uploading confidential or sensitive data.</li>
+                <li>Use AI support ethically in line with ITI regulations.</li>
+                <li>Comply with approval and audit requirements.</li>
+            </ul>
+        </article>
+    </section>
 </main>
 
 <div th:replace="~{fragments :: footer}"></div>
