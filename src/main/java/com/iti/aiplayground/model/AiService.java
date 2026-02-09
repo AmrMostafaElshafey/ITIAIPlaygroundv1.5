@@ -4,6 +4,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -14,8 +17,13 @@ import org.hibernate.annotations.Where;
 @Where(clause = "deleted = false")
 public class AiService extends BaseEntity {
     private String name;
-    private String ownerName;
-    private String category;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "owner_id")
+    private AdminUser owner;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "service_type_id")
+    private ServiceType serviceType;
 
     @Column(length = 1000)
     private String description;
@@ -35,20 +43,20 @@ public class AiService extends BaseEntity {
         this.name = name;
     }
 
-    public String getOwnerName() {
-        return ownerName;
+    public AdminUser getOwner() {
+        return owner;
     }
 
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
+    public void setOwner(AdminUser owner) {
+        this.owner = owner;
     }
 
-    public String getCategory() {
-        return category;
+    public ServiceType getServiceType() {
+        return serviceType;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setServiceType(ServiceType serviceType) {
+        this.serviceType = serviceType;
     }
 
     public String getDescription() {

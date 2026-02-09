@@ -6,18 +6,24 @@
 
 <main class="academy-container container">
     <section class="panel shadow-sm">
-        <h1>Installation Wizard - Step 3</h1>
+        <h1>Installation Wizard - Step 4</h1>
         <p>Add available AI services and mark which ones should appear on the home page.</p>
 
         <form class="form" th:action="@{/setup/install/services}" th:object="${service}" method="post">
             <label>Service Name
                 <input type="text" th:field="*{name}" required />
             </label>
-            <label>Owner
-                <input type="text" th:field="*{ownerName}" required />
+            <label>Service Owner
+                <select name="ownerId" required>
+                    <option value="" disabled selected>Select owner</option>
+                    <option th:each="owner : ${owners}" th:value="${owner.id}" th:text="${owner.fullName + ' • ' + owner.email}"></option>
+                </select>
             </label>
-            <label>Category
-                <input type="text" th:field="*{category}" />
+            <label>Service Type
+                <select name="serviceTypeId" required>
+                    <option value="" disabled selected>Select service type</option>
+                    <option th:each="type : ${serviceTypes}" th:value="${type.id}" th:text="${type.name}"></option>
+                </select>
             </label>
             <label>Status
                 <input type="text" th:field="*{status}" />

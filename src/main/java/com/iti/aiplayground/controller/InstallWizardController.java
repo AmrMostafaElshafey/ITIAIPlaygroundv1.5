@@ -125,14 +125,29 @@ public class InstallWizardController {
         }
         model.addAttribute("service", new AiService());
         model.addAttribute("services", aiServiceService.findAll());
+        model.addAttribute("owners", adminUserService.findAll());
+        model.addAttribute("serviceTypes", serviceTypeService.findAll());
         return "setup-services-step";
     }
 
     @PostMapping("/services")
-    public String addService(AiService service, HttpSession session) {
+    public String addService(AiService service,
+                             @RequestParam(required = false) Long ownerId,
+                             @RequestParam(required = false) Long serviceTypeId,
+                             HttpSession session,
+                             Model model) {
         if (!"ADMIN".equals(session.getAttribute("userRole"))) {
             return "redirect:/login";
         }
+        if (ownerId == null || serviceTypeId == null) {
+            model.addAttribute("service", service);
+            model.addAttribute("services", aiServiceService.findAll());
+            model.addAttribute("owners", adminUserService.findAll());
+            model.addAttribute("serviceTypes", serviceTypeService.findAll());
+            return "setup-services-step";
+        }
+        service.setOwner(adminUserService.findById(ownerId).orElse(null));
+        service.setServiceType(serviceTypeService.findById(serviceTypeId).orElse(null));
         aiServiceService.save(service);
         return "redirect:/setup/install/services";
     }

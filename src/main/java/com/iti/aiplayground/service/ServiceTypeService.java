@@ -3,6 +3,7 @@ package com.iti.aiplayground.service;
 import com.iti.aiplayground.model.ServiceType;
 import com.iti.aiplayground.repository.ServiceTypeRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,5 +20,9 @@ public class ServiceTypeService {
 
     public List<ServiceType> findAll() {
         return repository.findAll();
+    }
+
+    public Optional<ServiceType> findById(Long id) {
+        return repository.findById(id);
     }
 }

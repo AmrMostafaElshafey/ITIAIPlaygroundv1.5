@@ -25,4 +25,8 @@ public class AdminUserService {
     public Optional<AdminUser> findByEmail(String email) {
         return repository.findByEmail(email);
     }
+
+    public Optional<AdminUser> findById(Long id) {
+        return repository.findById(id);
+    }
 }

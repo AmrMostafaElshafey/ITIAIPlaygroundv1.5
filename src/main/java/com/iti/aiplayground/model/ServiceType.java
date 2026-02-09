@@ -1,5 +1,6 @@
 package com.iti.aiplayground.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import org.hibernate.annotations.SQLDelete;
@@ -11,6 +12,8 @@ import org.hibernate.annotations.Where;
 @Where(clause = "deleted = false")
 public class ServiceType extends BaseEntity {
     private String name;
+
+    @Column(length = 2000)
     private String description;
 
     public String getName() {

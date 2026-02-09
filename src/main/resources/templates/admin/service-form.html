@@ -10,11 +10,23 @@
         <label>Service Name
             <input type="text" th:field="*{name}" placeholder="AI Tutor" required />
         </label>
-        <label>Owner Name
-            <input type="text" th:field="*{ownerName}" placeholder="AI Governance Team" required />
+        <label>Service Owner
+            <select name="ownerId" required>
+                <option value="" disabled selected>Select owner</option>
+                <option th:each="owner : ${owners}"
+                        th:value="${owner.id}"
+                        th:text="${owner.fullName + ' • ' + owner.email}"
+                        th:selected="${service.owner != null and service.owner.id == owner.id}"></option>
+            </select>
         </label>
-        <label>Category
-            <input type="text" th:field="*{category}" placeholder="Education" />
+        <label>Service Type
+            <select name="serviceTypeId" required>
+                <option value="" disabled selected>Select service type</option>
+                <option th:each="type : ${serviceTypes}"
+                        th:value="${type.id}"
+                        th:text="${type.name}"
+                        th:selected="${service.serviceType != null and service.serviceType.id == type.id}"></option>
+            </select>
         </label>
         <label>Status
             <input type="text" th:field="*{status}" placeholder="Active" />
