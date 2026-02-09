@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${title})}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container">
+    <h1 th:text="${title}"></h1>
+    <section class="grid">
+        <div class="card highlight">
+            <h3 th:text="${serviceCount}">0</h3>
+            <p>Active AI services</p>
+        </div>
+        <div class="card">
+            <h3 th:text="${pendingApprovals}">0</h3>
+            <p>Pending approvals</p>
+        </div>
+        <div class="card">
+            <h3 th:text="${approvedRequests}">0</h3>
+            <p>Approved requests</p>
+        </div>
+    </section>
+    <section class="grid">
+        <div class="card">
+            <h2>Service Requests Summary</h2>
+            <table class="data-table">
+                <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Pending</td>
+                    <td th:text="${pendingApprovals}">0</td>
+                </tr>
+                <tr>
+                    <td>Approved</td>
+                    <td th:text="${approvedRequests}">0</td>
+                </tr>
+                <tr>
+                    <td>Rejected</td>
+                    <td th:text="${rejectedRequests}">0</td>
+                </tr>
+                <tr>
+                    <td>Service Usage (Approved)</td>
+                    <td th:text="${serviceUsageCount}">0</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <h2>Request Status Chart</h2>
+            <div class="chart">
+                <div class="chart-bar pending"
+                     th:style="'width:' + (${totalRequests} > 0 ? (${pendingApprovals} * 100 / ${totalRequests}) : 0) + '%'"
+                     th:text="${pendingApprovals}">0</div>
+                <div class="chart-bar approved"
+                     th:style="'width:' + (${totalRequests} > 0 ? (${approvedRequests} * 100 / ${totalRequests}) : 0) + '%'"
+                     th:text="${approvedRequests}">0</div>
+                <div class="chart-bar rejected"
+                     th:style="'width:' + (${totalRequests} > 0 ? (${rejectedRequests} * 100 / ${totalRequests}) : 0) + '%'"
+                     th:text="${rejectedRequests}">0</div>
+            </div>
+            <p class="chart-legend">Total requests: <span th:text="${totalRequests}">0</span></p>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

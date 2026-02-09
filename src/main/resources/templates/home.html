@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('ITI AI Playground Academy')}" />
+<body class="theme-iti academy-page">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="academy-container container">
+    <section class="academy-hero panel shadow-sm">
+        <h1>ITI AI Playground Academy</h1>
+        <p th:text="${config.heroSubtitle != null ? config.heroSubtitle : 'The official ITI platform for using Artificial Intelligence in learning and training safely and under supervision.'}"></p>
+        <a class="btn cta" th:href="${session.loggedIn == true ? '/service-requests/new' : '/login?redirect=/service-requests/new'}">
+            Start Using AI Playground (Login with ITI Account)
+        </a>
+        <div class="mini-links">
+            <a th:href="${policy.linkUrl != null ? policy.linkUrl : '/policy'}">Privacy Policy</a>
+            <a th:href="@{/policy}">Terms of Use</a>
+            <a th:href="${config.contactEmail != null ? 'mailto:' + config.contactEmail : 'mailto:ai-governance@iti.gov.eg'}">IT Support</a>
+        </div>
+    </section>
+
+    <section class="two-col row g-3">
+        <article class="panel col-md-6">
+            <h2>What is AI Playground?</h2>
+            <p th:text="${config.aboutText != null ? config.aboutText : 'AI Playground is an initiative by the Information Technology Institute tools designed to support learning, understanding, and analysis.'}"></p>
+            <ul>
+                <li>AI helps you understand, not cheat.</li>
+                <li>Structured and approved usage.</li>
+                <li>Aligned with ITI tracks and courses.</li>
+            </ul>
+        </article>
+        <article class="panel col-md-6">
+            <h2>Why AI Playground?</h2>
+            <ul>
+                <li>Official ITI platform.</li>
+                <li>Supervised by ITI instructors.</li>
+                <li>Customized prompts for each track.</li>
+                <li>Safe and monitored usage.</li>
+            </ul>
+        </article>
+    </section>
+
+    <section class="panel shadow-sm">
+        <h2 class="center">ITI AI Policy</h2>
+        <p th:text="${policy.summary != null ? policy.summary : 'Review the ITI AI usage policy to understand compliance, human oversight, and data handling expectations.'}"></p>
+        <a class="link" th:href="${policy.linkUrl != null ? policy.linkUrl : (policy.filePath != null ? policy.filePath : '/policy')}">Read the complete ITI AI Usage Policy</a>
+    </section>
+
+    <section class="panel shadow-sm">
+        <h2 class="center" th:text="${promptOverview.title != null ? promptOverview.title : 'Prompt Library'}"></h2>
+        <p class="center" th:text="${promptOverview.description != null ? promptOverview.description : 'Explore curated prompts organized by learning department.'}"></p>
+        <div class="prompt-grid">
+            <div class="prompt-item" th:each="prompt : ${prompts}">
+                <h4 th:text="${prompt.title}">Prompt title</h4>
+                <p th:text="${prompt.promptText}">Prompt text.</p>
+                <small th:text="${prompt.department != null ? prompt.department.name : 'General'}"></small>
+            </div>
+            <div class="empty" th:if="${#lists.isEmpty(prompts)}">Prompt library items will appear here once added by administrators.</div>
+        </div>
+    </section>
+
+    <section class="panel shadow-sm">
+        <h2 class="center">Available AI Services</h2>
+        <div class="services-grid">
+            <article class="service-card" th:each="service : ${services}">
+                <h4 th:text="${service.name}">Service Name</h4>
+                <p th:text="${service.description}">Service description</p>
+                <p><strong>Eligibility:</strong> <span th:text="${service.eligibility}">BOTH</span></p>
+                <a class="link" th:href="${session.loggedIn == true ? '/service-requests/new?serviceName=' + service.name : '/login?redirect=' + '/service-requests/new?serviceName=' + service.name}">Request this service</a>
+            </article>
+            <div class="empty" th:if="${#lists.isEmpty(services)}">Services will appear here once added by administrators.</div>
+        </div>
+    </section>
+
+    <section class="two-col row g-3">
+        <article class="panel success-box col-md-6">
+            <h2>You Can</h2>
+            <ul>
+                <li>Use AI to understand concepts.</li>
+                <li>Ask questions and explore solutions.</li>
+                <li>Improve and refine your work.</li>
+            </ul>
+        </article>
+        <article class="panel danger-box col-md-6">
+            <h2>You Can't</h2>
+            <ul>
+                <li>Submit AI-generated work as your own.</li>
+                <li>Upload personal or sensitive data.</li>
+                <li>Use AI services without approval.</li>
+            </ul>
+        </article>
+    </section>
+
+    <section class="panel center shadow-sm">
+        <h2>Ready to start?</h2>
+        <p>Use AI Playground and learn smarter — the right way.</p>
+        <a class="btn cta" th:href="${session.loggedIn == true ? '/service-requests/new' : '/login?redirect=/service-requests/new'}">Login Now</a>
+    </section>
+
+    <section class="notice" th:if="${!hasConfig}">
+        <strong>Setup Required:</strong> Use the setup wizard to load initial home content.
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
