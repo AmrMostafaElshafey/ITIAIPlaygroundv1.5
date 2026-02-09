@@ -14,6 +14,7 @@ import org.hibernate.annotations.Where;
 public class AdminUser extends BaseEntity {
     private String fullName;
     private String email;
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private SystemRole role = SystemRole.ADMIN;
@@ -32,6 +33,14 @@ public class AdminUser extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public SystemRole getRole() {

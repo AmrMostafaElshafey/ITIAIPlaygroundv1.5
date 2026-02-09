@@ -53,6 +53,7 @@ Then visit:
 
 - Student and Staff users must have an approved registration request before logging in.
 - Admin, Service Owner, and Approver roles are available in the login form for demo purposes.
+- A default admin account is seeded at startup: `admin@iti` / `Admin@ITI@2026`.
 
 ## Soft Delete Behavior
 
