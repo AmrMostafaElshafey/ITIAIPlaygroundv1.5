@@ -4,15 +4,16 @@
 <body class="theme-iti academy-page">
 <div th:replace="~{fragments :: header}"></div>
 
-<main class="academy-container">
-    <section class="panel academy-hero">
+<main class="academy-container container">
+    <section class="panel academy-hero shadow-sm">
         <h1 th:text="${policy.title != null ? policy.title : 'ITI AI Usage Policy'}"></h1>
         <p th:text="${policy.summary != null ? policy.summary : 'This page provides the complete ITI AI usage policy summary for staff and students.'}"></p>
         <a class="btn cta" th:if="${policy.linkUrl != null}" th:href="${policy.linkUrl}">Open Full Policy Document</a>
+        <a class="btn cta" th:if="${policy.linkUrl == null and policy.filePath != null}" th:href="${policy.filePath}">Open Uploaded Policy File</a>
     </section>
 
-    <section class="two-col">
-        <article class="panel">
+    <section class="two-col row g-3">
+        <article class="panel col-md-6">
             <h2>Core Principles</h2>
             <ul>
                 <li>Transparency in all AI-assisted workflows.</li>
@@ -21,7 +22,7 @@
                 <li>Continuous human oversight.</li>
             </ul>
         </article>
-        <article class="panel">
+        <article class="panel col-md-6">
             <h2>Student & Staff Responsibilities</h2>
             <ul>
                 <li>Acknowledge the policy before service usage.</li>

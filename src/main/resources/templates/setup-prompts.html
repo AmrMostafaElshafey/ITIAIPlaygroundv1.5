@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Installation Wizard - Prompt Library')}" />
+<body class="theme-iti academy-page">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="academy-container container">
+    <section class="panel shadow-sm">
+        <h1>Installation Wizard - Step 4</h1>
+        <p>Add the prompt library description, learning departments, and sample prompts.</p>
+
+        <form class="form" th:action="@{/setup/install/prompt-overview}" th:object="${promptOverview}" method="post">
+            <label>Prompt Library Title
+                <input type="text" th:field="*{title}" placeholder="Prompt Library" />
+            </label>
+            <label>Description
+                <textarea th:field="*{description}" rows="3" placeholder="Describe how prompts support each learning department."></textarea>
+            </label>
+            <button class="btn cta" type="submit">Save Prompt Library Description</button>
+        </form>
+
+        <form class="form" th:action="@{/setup/install/departments}" th:object="${department}" method="post">
+            <label>Department Name
+                <input type="text" th:field="*{name}" required />
+            </label>
+            <label>Description
+                <input type="text" th:field="*{description}" />
+            </label>
+            <button class="btn outline" type="submit">Add Department</button>
+        </form>
+
+        <form class="form" th:action="@{/setup/install/prompts}" th:object="${prompt}" method="post">
+            <label>Prompt Title
+                <input type="text" th:field="*{title}" required />
+            </label>
+            <label>Prompt Text
+                <textarea th:field="*{promptText}" rows="3"></textarea>
+            </label>
+            <label>Department
+                <select name="departmentId" required>
+                    <option value="" disabled selected>Select department</option>
+                    <option th:each="dept : ${departments}" th:value="${dept.id}" th:text="${dept.name}"></option>
+                </select>
+            </label>
+            <button class="btn cta" type="submit">Add Prompt</button>
+        </form>
+
+        <div class="grid prompt-grid">
+            <div class="card" th:each="promptItem : ${prompts}">
+                <h4 th:text="${promptItem.title}"></h4>
+                <p th:text="${promptItem.promptText}"></p>
+                <p><strong>Department:</strong> <span th:text="${promptItem.department != null ? promptItem.department.name : 'General'}"></span></p>
+            </div>
+        </div>
+
+        <div class="wizard-nav">
+            <a class="btn outline" th:href="@{/setup/install/services}">Back: Services</a>
+            <a class="btn outline" th:href="@{/}">Finish & Go Home</a>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

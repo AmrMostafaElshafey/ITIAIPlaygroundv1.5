@@ -36,7 +36,7 @@ Then visit:
 - `http://localhost:8080/` (home page)
 - `http://localhost:8080/setup` (setup wizard)
 - `http://localhost:8080/setup/services` (service setup wizard)
-- `http://localhost:8080/setup/install` (installation wizard)
+- `http://localhost:8080/setup/install/users` (installation wizard)
 - `http://localhost:8080/admin/services` (admin CRUD)
 - `http://localhost:8080/register` (user registration)
 - `http://localhost:8080/admin/registrations` (admin registration approvals)
@@ -45,6 +45,11 @@ Then visit:
 - `http://localhost:8080/admin/service-requests` (admin request review)
 - `http://localhost:8080/approver/service-requests` (approver request review)
 - `http://localhost:8080/policy` (ITI AI usage policy)
+- `http://localhost:8080/setup/install/users` (installation wizard step 1)
+- `http://localhost:8080/setup/install/policy` (installation wizard step 2)
+- `http://localhost:8080/setup/install/service-types` (installation wizard step 3)
+- `http://localhost:8080/setup/install/services` (installation wizard step 4)
+- `http://localhost:8080/setup/install/prompts` (installation wizard step 5)
 - `http://localhost:8080/dashboard/admin`
 - `http://localhost:8080/dashboard/service-owner`
 - `http://localhost:8080/dashboard/approver`

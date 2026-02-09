@@ -17,6 +17,7 @@ public class Policy extends BaseEntity {
     private String summary;
 
     private String linkUrl;
+    private String filePath;
 
     public String getTitle() {
         return title;
@@ -40,5 +41,13 @@ public class Policy extends BaseEntity {
 
     public void setLinkUrl(String linkUrl) {
         this.linkUrl = linkUrl;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }

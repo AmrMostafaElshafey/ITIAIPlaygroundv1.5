@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Installation Wizard - Services')}" />
+<body class="theme-iti academy-page">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="academy-container container">
+    <section class="panel shadow-sm">
+        <h1>Installation Wizard - Step 3</h1>
+        <p>Add available AI services and mark which ones should appear on the home page.</p>
+
+        <form class="form" th:action="@{/setup/install/services}" th:object="${service}" method="post">
+            <label>Service Name
+                <input type="text" th:field="*{name}" required />
+            </label>
+            <label>Owner
+                <input type="text" th:field="*{ownerName}" required />
+            </label>
+            <label>Category
+                <input type="text" th:field="*{category}" />
+            </label>
+            <label>Status
+                <input type="text" th:field="*{status}" />
+            </label>
+            <label>Eligibility
+                <select th:field="*{eligibility}">
+                    <option value="STUDENT">Student</option>
+                    <option value="STAFF">Staff</option>
+                    <option value="BOTH">Both</option>
+                </select>
+            </label>
+            <label>Publish on Home Page
+                <select th:field="*{publishOnHome}">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </label>
+            <label>Description
+                <textarea th:field="*{description}" rows="3"></textarea>
+            </label>
+            <button class="btn cta" type="submit">Add Service</button>
+        </form>
+
+        <div class="grid services-grid">
+            <div class="card" th:each="svc : ${services}">
+                <h4 th:text="${svc.name}">Service</h4>
+                <p th:text="${svc.description}"></p>
+                <p><strong>Eligibility:</strong> <span th:text="${svc.eligibility}"></span></p>
+                <p><strong>Home Page:</strong> <span th:text="${svc.publishOnHome ? 'Yes' : 'No'}"></span></p>
+            </div>
+        </div>
+
+        <div class="wizard-nav">
+            <a class="btn outline" th:href="@{/setup/install/service-types}">Back: Service Types</a>
+            <a class="btn outline" th:href="@{/setup/install/prompts}">Next: Prompt Library</a>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

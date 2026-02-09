@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Installation Wizard - Policy')}" />
+<body class="theme-iti academy-page">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="academy-container container">
+    <section class="panel shadow-sm">
+        <h1>Installation Wizard - Step 2</h1>
+        <p>Add the AI usage policy description and upload the full policy file.</p>
+
+        <form class="form" th:action="@{/setup/install/policy}" th:object="${policy}" method="post" enctype="multipart/form-data">
+            <label>Title
+                <input type="text" th:field="*{title}" required />
+            </label>
+            <label>Summary
+                <textarea th:field="*{summary}" rows="3"></textarea>
+            </label>
+            <label>Policy Link (optional)
+                <input type="text" th:field="*{linkUrl}" placeholder="https://iti.gov.eg/..." />
+            </label>
+            <label>Upload Policy File
+                <input type="file" name="policyFile" accept="application/pdf" />
+            </label>
+            <button class="btn cta" type="submit">Save Policy</button>
+        </form>
+
+        <div class="wizard-nav">
+            <a class="btn outline" th:href="@{/setup/install/users}">Back: Users</a>
+            <a class="btn outline" th:href="@{/setup/install/service-types}">Next: Service Types</a>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

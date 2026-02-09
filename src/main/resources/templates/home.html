@@ -4,8 +4,8 @@
 <body class="theme-iti academy-page">
 <div th:replace="~{fragments :: header}"></div>
 
-<main class="academy-container">
-    <section class="academy-hero panel">
+<main class="academy-container container">
+    <section class="academy-hero panel shadow-sm">
         <h1>ITI AI Playground Academy</h1>
         <p th:text="${config.heroSubtitle != null ? config.heroSubtitle : 'The official ITI platform for using Artificial Intelligence in learning and training safely and under supervision.'}"></p>
         <a class="btn cta" th:href="${session.loggedIn == true ? '/service-requests/new' : '/login?redirect=/service-requests/new'}">
@@ -18,8 +18,8 @@
         </div>
     </section>
 
-    <section class="two-col">
-        <article class="panel">
+    <section class="two-col row g-3">
+        <article class="panel col-md-6">
             <h2>What is AI Playground?</h2>
             <p th:text="${config.aboutText != null ? config.aboutText : 'AI Playground is an initiative by the Information Technology Institute tools designed to support learning, understanding, and analysis.'}"></p>
             <ul>
@@ -28,7 +28,7 @@
                 <li>Aligned with ITI tracks and courses.</li>
             </ul>
         </article>
-        <article class="panel">
+        <article class="panel col-md-6">
             <h2>Why AI Playground?</h2>
             <ul>
                 <li>Official ITI platform.</li>
@@ -39,14 +39,15 @@
         </article>
     </section>
 
-    <section class="panel">
+    <section class="panel shadow-sm">
         <h2 class="center">ITI AI Policy</h2>
         <p th:text="${policy.summary != null ? policy.summary : 'Review the ITI AI usage policy to understand compliance, human oversight, and data handling expectations.'}"></p>
-        <a class="link" th:href="${policy.linkUrl != null ? policy.linkUrl : '/policy'}">Read the complete ITI AI Usage Policy</a>
+        <a class="link" th:href="${policy.linkUrl != null ? policy.linkUrl : (policy.filePath != null ? policy.filePath : '/policy')}">Read the complete ITI AI Usage Policy</a>
     </section>
 
-    <section class="panel">
-        <h2 class="center">Prompt Library</h2>
+    <section class="panel shadow-sm">
+        <h2 class="center" th:text="${promptOverview.title != null ? promptOverview.title : 'Prompt Library'}"></h2>
+        <p class="center" th:text="${promptOverview.description != null ? promptOverview.description : 'Explore curated prompts organized by learning department.'}"></p>
         <div class="prompt-grid">
             <div class="prompt-item" th:each="prompt : ${prompts}">
                 <h4 th:text="${prompt.title}">Prompt title</h4>
@@ -57,7 +58,7 @@
         </div>
     </section>
 
-    <section class="panel">
+    <section class="panel shadow-sm">
         <h2 class="center">Available AI Services</h2>
         <div class="services-grid">
             <article class="service-card" th:each="service : ${services}">
@@ -70,8 +71,8 @@
         </div>
     </section>
 
-    <section class="two-col">
-        <article class="panel success-box">
+    <section class="two-col row g-3">
+        <article class="panel success-box col-md-6">
             <h2>You Can</h2>
             <ul>
                 <li>Use AI to understand concepts.</li>
@@ -79,7 +80,7 @@
                 <li>Improve and refine your work.</li>
             </ul>
         </article>
-        <article class="panel danger-box">
+        <article class="panel danger-box col-md-6">
             <h2>You Can't</h2>
             <ul>
                 <li>Submit AI-generated work as your own.</li>
@@ -89,7 +90,7 @@
         </article>
     </section>
 
-    <section class="panel center">
+    <section class="panel center shadow-sm">
         <h2>Ready to start?</h2>
         <p>Use AI Playground and learn smarter — the right way.</p>
         <a class="btn cta" th:href="${session.loggedIn == true ? '/service-requests/new' : '/login?redirect=/service-requests/new'}">Login Now</a>
