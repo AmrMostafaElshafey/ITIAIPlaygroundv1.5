@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Service Request')}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container narrow">
+    <h1>Submit Service Request</h1>
+    <p>Approved users can request access to AI services. Requests are routed to the Service Owner.</p>
+
+    <div class="notice" th:if="${submitted}">
+        Your service request has been submitted and is pending review.
+    </div>
+    <div class="notice" th:if="${error}">
+        <strong th:text="${error}"></strong>
+    </div>
+
+    <form class="form" th:action="@{/service-requests}" method="post">
+        <label>Approved Registration
+            <select name="registrationId" required>
+                <option value="" disabled selected>Select an approved registration</option>
+                <option th:each="registration : ${approvedRegistrations}"
+                        th:value="${registration.id}"
+                        th:text="${registration.fullName + ' • ' + registration.role}"></option>
+            </select>
+        </label>
+        <label>Service Name
+            <input type="text" name="serviceName" placeholder="AI Tutor" th:value="${serviceName}" required />
+        </label>
+        <label>Reason for Usage
+            <textarea name="requestNotes" rows="4" placeholder="Describe the intended usage and justification." required></textarea>
+        </label>
+        <label>Access Limits
+            <input type="text" name="accessLimits" placeholder="Example: 100 prompts/day, dataset access" required />
+        </label>
+        <label>Access Duration (From)
+            <input type="date" name="startDate" required />
+        </label>
+        <label>Access Duration (To)
+            <input type="date" name="endDate" required />
+        </label>
+        <button class="btn primary" type="submit">Submit Request</button>
+    </form>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
