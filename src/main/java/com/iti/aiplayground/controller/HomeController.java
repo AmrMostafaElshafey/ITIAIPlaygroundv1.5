@@ -2,9 +2,11 @@ package com.iti.aiplayground.controller;
 
 import com.iti.aiplayground.model.HomePageConfig;
 import com.iti.aiplayground.model.Policy;
+import com.iti.aiplayground.model.PromptLibraryOverview;
 import com.iti.aiplayground.service.AiServiceService;
 import com.iti.aiplayground.service.HomePageConfigService;
 import com.iti.aiplayground.service.PolicyService;
+import com.iti.aiplayground.service.PromptLibraryOverviewService;
 import com.iti.aiplayground.service.PromptLibraryService;
 import java.util.Optional;
 import org.springframework.stereotype.Controller;
@@ -16,15 +18,18 @@ public class HomeController {
     private final HomePageConfigService homePageConfigService;
     private final AiServiceService aiServiceService;
     private final PolicyService policyService;
+    private final PromptLibraryOverviewService promptLibraryOverviewService;
     private final PromptLibraryService promptLibraryService;
 
     public HomeController(HomePageConfigService homePageConfigService,
                           AiServiceService aiServiceService,
                           PolicyService policyService,
+                          PromptLibraryOverviewService promptLibraryOverviewService,
                           PromptLibraryService promptLibraryService) {
         this.homePageConfigService = homePageConfigService;
         this.aiServiceService = aiServiceService;
         this.policyService = policyService;
+        this.promptLibraryOverviewService = promptLibraryOverviewService;
         this.promptLibraryService = promptLibraryService;
     }
 
@@ -35,6 +40,7 @@ public class HomeController {
         model.addAttribute("hasConfig", config.isPresent());
         model.addAttribute("services", aiServiceService.findPublished());
         model.addAttribute("policy", policyService.getLatest().orElseGet(Policy::new));
+        model.addAttribute("promptOverview", promptLibraryOverviewService.getLatest().orElseGet(PromptLibraryOverview::new));
         model.addAttribute("prompts", promptLibraryService.findFeatured());
         return "home";
     }

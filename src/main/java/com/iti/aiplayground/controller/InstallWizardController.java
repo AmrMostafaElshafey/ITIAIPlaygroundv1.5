@@ -5,12 +5,14 @@ import com.iti.aiplayground.model.AiService;
 import com.iti.aiplayground.model.LearningDepartment;
 import com.iti.aiplayground.model.Policy;
 import com.iti.aiplayground.model.PromptLibraryItem;
+import com.iti.aiplayground.model.PromptLibraryOverview;
 import com.iti.aiplayground.model.ServiceType;
 import com.iti.aiplayground.model.SystemRole;
 import com.iti.aiplayground.service.AdminUserService;
 import com.iti.aiplayground.service.AiServiceService;
 import com.iti.aiplayground.service.LearningDepartmentService;
 import com.iti.aiplayground.service.PolicyService;
+import com.iti.aiplayground.service.PromptLibraryOverviewService;
 import com.iti.aiplayground.service.PromptLibraryService;
 import com.iti.aiplayground.service.ServiceTypeService;
 import com.iti.aiplayground.service.UploadStorageService;
@@ -33,6 +35,7 @@ public class InstallWizardController {
     private final PolicyService policyService;
     private final LearningDepartmentService learningDepartmentService;
     private final PromptLibraryService promptLibraryService;
+    private final PromptLibraryOverviewService promptLibraryOverviewService;
     private final UploadStorageService uploadStorageService;
 
     public InstallWizardController(AdminUserService adminUserService,
@@ -41,6 +44,7 @@ public class InstallWizardController {
                                    PolicyService policyService,
                                    LearningDepartmentService learningDepartmentService,
                                    PromptLibraryService promptLibraryService,
+                                   PromptLibraryOverviewService promptLibraryOverviewService,
                                    UploadStorageService uploadStorageService) {
         this.adminUserService = adminUserService;
         this.serviceTypeService = serviceTypeService;
@@ -48,6 +52,7 @@ public class InstallWizardController {
         this.policyService = policyService;
         this.learningDepartmentService = learningDepartmentService;
         this.promptLibraryService = promptLibraryService;
+        this.promptLibraryOverviewService = promptLibraryOverviewService;
         this.uploadStorageService = uploadStorageService;
     }
 
@@ -139,6 +144,7 @@ public class InstallWizardController {
         }
         model.addAttribute("department", new LearningDepartment());
         model.addAttribute("prompt", new PromptLibraryItem());
+        model.addAttribute("promptOverview", promptLibraryOverviewService.getLatest().orElseGet(PromptLibraryOverview::new));
         model.addAttribute("departments", learningDepartmentService.findAll());
         model.addAttribute("prompts", promptLibraryService.findAll());
         return "setup-prompts";
@@ -160,6 +166,15 @@ public class InstallWizardController {
         }
         learningDepartmentService.findById(departmentId).ifPresent(prompt::setDepartment);
         promptLibraryService.save(prompt);
+        return "redirect:/setup/install/prompts";
+    }
+
+    @PostMapping("/prompt-overview")
+    public String savePromptOverview(PromptLibraryOverview overview, HttpSession session) {
+        if (!"ADMIN".equals(session.getAttribute("userRole"))) {
+            return "redirect:/login";
+        }
+        promptLibraryOverviewService.save(overview);
         return "redirect:/setup/install/prompts";
     }
 }
