@@ -9,29 +9,44 @@
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </div>
 
-<header th:fragment="header">
-    <nav class="navbar">
-        <div class="brand">ITI AI Playground</div>
-        <div class="nav-links">
-            <a th:href="@{/}">Home</a>
-            <a th:href="@{/setup}">Setup Wizard</a>
-            <a th:href="@{/setup/services}">Service Setup</a>
-            <a th:href="@{/setup/install/users}">Installation Wizard</a>
-            <a th:href="@{/register}">User Registration</a>
-            <a th:if="${session.loggedIn == true}" th:href="@{/service-requests/new}">Service Request</a>
-            <a th:href="@{/policy}">Policy</a>
-            <a th:if="${session.userRole == 'ADMIN'}" th:href="@{/admin/services}">Admin CRUD</a>
-            <a th:if="${session.userRole == 'ADMIN'}" th:href="@{/admin/registrations}">Registration Approvals</a>
-            <a th:if="${session.userRole == 'ADMIN'}" th:href="@{/admin/service-requests}">Service Requests</a>
-            <a th:if="${session.userRole == 'APPROVER'}" th:href="@{/approver/registrations}">Approver Queue</a>
-            <a th:if="${session.userRole == 'APPROVER'}" th:href="@{/approver/service-requests}">Approver Requests</a>
-            <a th:if="${session.userRole == 'ADMIN'}" th:href="@{/dashboard/admin}">Admin Dashboard</a>
-            <a th:if="${session.userRole == 'SERVICE_OWNER'}" th:href="@{/dashboard/service-owner}">Service Owner Dashboard</a>
+<header th:fragment="header" class="site-header">
+    <div class="top-bar">
+        <div class="logo-block">
+            <div class="logo-mark">ITI</div>
+            <div class="logo-text">
+                <strong>ITI AI Playground</strong>
+                <span>Information Technology Institute</span>
+            </div>
         </div>
+        <div class="top-actions">
+            <span class="top-tagline">Secure AI access for ITI learners and staff</span>
+            <form class="search-form" action="#" method="get">
+                <input type="search" name="q" placeholder="Search..." aria-label="Search" />
+                <button type="submit" aria-label="Search">🔍</button>
+            </form>
+        </div>
+    </div>
+    <nav class="main-nav">
+        <a class="nav-link" th:href="@{/}">Home</a>
+        <a class="nav-link" th:href="@{/policy}">Policy</a>
+        <a class="nav-link" th:href="@{/#prompt-library}">Prompt Library</a>
+        <a class="nav-link" th:href="@{/#services}">Services</a>
+        <a class="nav-link" th:if="${session.loggedIn == true}" th:href="@{/service-requests/new}">Service Request</a>
+        <a class="nav-link" th:if="${session.loggedIn != true}" th:href="@{/login}">Login/Register</a>
+        <a class="nav-link" th:if="${session.userRole == 'ADMIN'}" th:href="@{/admin/services}">Admin Services</a>
+        <a class="nav-link" th:if="${session.userRole == 'ADMIN'}" th:href="@{/admin/registrations}">Registration Approvals</a>
+        <a class="nav-link" th:if="${session.userRole == 'ADMIN'}" th:href="@{/admin/service-requests}">Service Requests</a>
+        <a class="nav-link" th:if="${session.userRole == 'APPROVER'}" th:href="@{/approver/registrations}">Approver Queue</a>
+        <a class="nav-link" th:if="${session.userRole == 'APPROVER'}" th:href="@{/approver/service-requests}">Approver Requests</a>
+        <a class="nav-link" th:if="${session.userRole == 'ADMIN'}" th:href="@{/dashboard/admin}">Admin Dashboard</a>
+        <a class="nav-link" th:if="${session.userRole == 'SERVICE_OWNER'}" th:href="@{/dashboard/service-owner}">Service Owner Dashboard</a>
+        <a class="nav-link" th:if="${session.loggedIn == true and (session.userRole == 'ADMIN' or session.userRole == 'SERVICE_OWNER')}" th:href="@{/setup}">Setup Wizard</a>
+        <a class="nav-link" th:if="${session.loggedIn == true and (session.userRole == 'ADMIN' or session.userRole == 'SERVICE_OWNER')}" th:href="@{/setup/services}">Service Setup</a>
+        <a class="nav-link" th:if="${session.loggedIn == true and (session.userRole == 'ADMIN' or session.userRole == 'SERVICE_OWNER')}" th:href="@{/setup/install/users}">Installation Wizard</a>
         <div class="theme-switcher">
             <label for="theme-select">Theme</label>
             <select id="theme-select" aria-label="Select color theme">
-                <option value="iti">ITI Blue</option>
+                <option value="iti">ITI Crimson</option>
                 <option value="emerald">Emerald</option>
                 <option value="slate">Slate</option>
             </select>
