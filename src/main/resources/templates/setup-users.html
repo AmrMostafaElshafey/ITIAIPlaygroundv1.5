@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Installation Wizard - Users')}" />
+<body class="theme-iti academy-page">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="academy-container container">
+    <section class="panel shadow-sm">
+        <h1>Installation Wizard - Step 1</h1>
+        <p>Add admin users and assign roles.</p>
+
+        <form class="form" th:action="@{/setup/install/users}" th:object="${adminUser}" method="post">
+            <label>Full Name
+                <input type="text" th:field="*{fullName}" required />
+            </label>
+            <label>Email
+                <input type="email" th:field="*{email}" required />
+            </label>
+            <label>Password
+                <input type="text" th:field="*{password}" required />
+            </label>
+            <label>Role
+                <select th:field="*{role}">
+                    <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                </select>
+            </label>
+            <button class="btn cta" type="submit">Add User</button>
+        </form>
+
+        <div class="grid">
+            <div class="card" th:each="user : ${users}">
+                <h4 th:text="${user.fullName}">User Name</h4>
+                <p th:text="${user.email}">email</p>
+                <p><strong>Role:</strong> <span th:text="${user.role}"></span></p>
+            </div>
+        </div>
+
+        <div class="wizard-nav">
+            <a class="btn outline" th:href="@{/setup/install/policy}">Next: Policy</a>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>

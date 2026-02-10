@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('ITI AI Usage Policy')}" />
+<body class="theme-iti academy-page">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="academy-container container">
+    <section class="panel academy-hero shadow-sm">
+        <h1 th:text="${policy.title != null ? policy.title : 'ITI AI Usage Policy'}"></h1>
+        <p th:text="${policy.summary != null ? policy.summary : 'This page provides the complete ITI AI usage policy summary for staff and students.'}"></p>
+        <a class="btn cta" th:if="${policy.filePath != null}" th:href="${policy.filePath}" target="_blank">Open Uploaded Policy File</a>
+        <a class="btn cta" th:if="${policy.filePath == null and policy.linkUrl != null}" th:href="${policy.linkUrl}" target="_blank">Open Full Policy Document</a>
+    </section>
+
+    <section class="two-col row g-3">
+        <article class="panel col-md-6">
+            <h2>Core Principles</h2>
+            <ul>
+                <li>Transparency in all AI-assisted workflows.</li>
+                <li>Accountability by instructors and administrators.</li>
+                <li>Privacy & security by default.</li>
+                <li>Continuous human oversight.</li>
+            </ul>
+        </article>
+        <article class="panel col-md-6">
+            <h2>Student & Staff Responsibilities</h2>
+            <ul>
+                <li>Acknowledge the policy before service usage.</li>
+                <li>Avoid uploading confidential or sensitive data.</li>
+                <li>Use AI support ethically in line with ITI regulations.</li>
+                <li>Comply with approval and audit requirements.</li>
+            </ul>
+        </article>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
