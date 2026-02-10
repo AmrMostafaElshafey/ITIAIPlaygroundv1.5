@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head(${title})}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container">
+    <h1 th:text="${title}"></h1>
+    <section class="grid">
+        <div class="card highlight">
+            <h3 th:text="${serviceCount}">0</h3>
+            <p>Services you own</p>
+        </div>
+        <div class="card">
+            <h3 th:text="${drafts}">0</h3>
+            <p>Draft updates waiting review</p>
+        </div>
+        <div class="card">
+            <h3 th:text="${published}">0</h3>
+            <p>Published services</p>
+        </div>
+    </section>
+    <section class="card">
+        <h2>Next Steps</h2>
+        <ol>
+            <li>Review pending policy updates for your services.</li>
+            <li>Submit new AI service requests for catalog approval.</li>
+            <li>Monitor user feedback and usage analytics.</li>
+        </ol>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
