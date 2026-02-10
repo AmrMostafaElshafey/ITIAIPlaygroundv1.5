@@ -7,6 +7,7 @@
     --text: #2f2f2f;
     --muted: #6b6b6b;
     --border: #d9d9d9;
+    --nav-light: #575050;
     --nav-dark: #3f3a3a;
 }
 
@@ -19,6 +20,7 @@ body.theme-iti {
     --text: #2f2f2f;
     --muted: #6b6b6b;
     --border: #d9d9d9;
+    --nav-light: #575050;
     --nav-dark: #3f3a3a;
 }
 
@@ -31,6 +33,8 @@ body.theme-emerald {
     --text: #1f2937;
     --muted: #6b7280;
     --border: #d1e7dd;
+    --nav-light: #155e57;
+    --nav-dark: #0f4f48;
 }
 
 body.theme-slate {
@@ -42,6 +46,8 @@ body.theme-slate {
     --text: #0f172a;
     --muted: #64748b;
     --border: #e2e8f0;
+    --nav-light: #475569;
+    --nav-dark: #334155;
 }
 
 * {
@@ -646,7 +652,7 @@ small {
     justify-content: space-between;
     gap: 1rem;
     padding: 0.75rem 2rem;
-    background: linear-gradient(180deg, #4a4444, var(--nav-dark));
+    background: linear-gradient(180deg, var(--nav-light), var(--nav-dark));
     color: #fff;
 }
 
@@ -711,12 +717,13 @@ small {
     background: #111;
     border-radius: 8px;
     height: 230px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 600;
-    letter-spacing: 1px;
+    overflow: hidden;
+}
+
+.hero-media .video-placeholder iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
 }
 
 .feature-row {
