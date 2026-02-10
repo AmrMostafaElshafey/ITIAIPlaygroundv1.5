@@ -8,8 +8,8 @@
     <section class="panel academy-hero shadow-sm">
         <h1 th:text="${policy.title != null ? policy.title : 'ITI AI Usage Policy'}"></h1>
         <p th:text="${policy.summary != null ? policy.summary : 'This page provides the complete ITI AI usage policy summary for staff and students.'}"></p>
-        <a class="btn cta" th:if="${policy.linkUrl != null}" th:href="${policy.linkUrl}">Open Full Policy Document</a>
-        <a class="btn cta" th:if="${policy.linkUrl == null and policy.filePath != null}" th:href="${policy.filePath}">Open Uploaded Policy File</a>
+        <a class="btn cta" th:if="${policy.filePath != null}" th:href="${policy.filePath}" target="_blank">Open Uploaded Policy File</a>
+        <a class="btn cta" th:if="${policy.filePath == null and policy.linkUrl != null}" th:href="${policy.linkUrl}" target="_blank">Open Full Policy Document</a>
     </section>
 
     <section class="two-col row g-3">

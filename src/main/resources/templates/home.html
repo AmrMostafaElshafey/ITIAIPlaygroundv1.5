@@ -14,7 +14,7 @@
                     Start Using AI Playground
                 </a>
                 <div class="mini-links">
-                    <a th:href="${policy.linkUrl != null ? policy.linkUrl : '/policy'}">Privacy Policy</a>
+                    <a th:href="${policy.filePath != null ? policy.filePath : (policy.linkUrl != null ? policy.linkUrl : '/policy')}">Privacy Policy</a>
                     <a th:href="@{/policy}">Terms of Use</a>
                     <a th:href="${config.contactEmail != null ? 'mailto:' + config.contactEmail : 'mailto:ai-governance@iti.gov.eg'}">IT Support</a>
                 </div>
@@ -38,7 +38,7 @@
         <article class="feature-card">
             <h3>About ITI AI Policy</h3>
             <p th:text="${policy.summary != null ? policy.summary : 'Responsible AI usage keeps ITI learning honest, safe, and effective.'}"></p>
-            <a class="btn compact" th:href="${policy.linkUrl != null ? policy.linkUrl : (policy.filePath != null ? policy.filePath : '/policy')}" target="_blank">Read Policy</a>
+            <a class="btn compact" th:href="${policy.filePath != null ? policy.filePath : (policy.linkUrl != null ? policy.linkUrl : '/policy')}" target="_blank">Read Policy</a>
         </article>
         <article class="feature-card">
             <h3 th:text="${promptOverview.title != null ? promptOverview.title : 'Prompt Library'}"></h3>
@@ -58,9 +58,9 @@
             <p th:text="${policy.summary != null ? policy.summary : 'Responsible AI usage is essential for the ITI community. Read the guidelines before using any AI service.'}"></p>
         </div>
         <div class="policy-actions">
-            <a class="btn outline" th:if="${policy.linkUrl != null}" th:href="${policy.linkUrl}" target="_blank">Complete Policy</a>
-            <a class="btn outline" th:if="${policy.linkUrl == null and policy.filePath != null}" th:href="${policy.filePath}" target="_blank">Complete Policy</a>
-            <a class="btn outline" th:if="${policy.linkUrl == null and policy.filePath == null}" th:href="@{/policy}">Complete Policy</a>
+            <a class="btn outline" th:if="${policy.filePath != null}" th:href="${policy.filePath}" target="_blank">Complete Policy</a>
+            <a class="btn outline" th:if="${policy.filePath == null and policy.linkUrl != null}" th:href="${policy.linkUrl}" target="_blank">Complete Policy</a>
+            <a class="btn outline" th:if="${policy.filePath == null and policy.linkUrl == null}" th:href="@{/policy}">Complete Policy</a>
         </div>
     </section>
 
