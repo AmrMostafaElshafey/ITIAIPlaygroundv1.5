@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Installation Wizard')}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container">
+    <h1>Installation Wizard</h1>
+    <p>Configure the ITI AI Playground core data before launch.</p>
+
+    <section class="card">
+        <h2>Admin Users</h2>
+        <form class="form" th:action="@{/setup/install/users}" th:object="${adminUser}" method="post">
+            <label>Full Name
+                <input type="text" th:field="*{fullName}" required />
+            </label>
+            <label>Email
+                <input type="email" th:field="*{email}" required />
+            </label>
+            <label>Password
+                <input type="text" th:field="*{password}" required />
+            </label>
+            <label>Role
+                <select th:field="*{role}">
+                    <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                </select>
+            </label>
+            <button class="btn primary" type="submit">Add User</button>
+        </form>
+        <div class="grid">
+            <div class="card" th:each="user : ${users}">
+                <h4 th:text="${user.fullName}">User Name</h4>
+                <p th:text="${user.email}">email</p>
+                <p><strong>Role:</strong> <span th:text="${user.role}"></span></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Service Types</h2>
+        <form class="form" th:action="@{/setup/install/service-types}" th:object="${serviceType}" method="post">
+            <label>Name
+                <input type="text" th:field="*{name}" required />
+            </label>
+            <label>Description
+                <input type="text" th:field="*{description}" />
+            </label>
+            <button class="btn primary" type="submit">Add Service Type</button>
+        </form>
+        <div class="grid">
+            <div class="card" th:each="type : ${serviceTypes}">
+                <h4 th:text="${type.name}">Type</h4>
+                <p th:text="${type.description}"></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Services</h2>
+        <form class="form" th:action="@{/setup/install/services}" th:object="${service}" method="post">
+            <label>Service Name
+                <input type="text" th:field="*{name}" required />
+            </label>
+            <label>Owner
+                <input type="text" th:field="*{ownerName}" required />
+            </label>
+            <label>Category
+                <input type="text" th:field="*{category}" />
+            </label>
+            <label>Status
+                <input type="text" th:field="*{status}" />
+            </label>
+            <label>Eligibility
+                <select th:field="*{eligibility}">
+                    <option value="STUDENT">Student</option>
+                    <option value="STAFF">Staff</option>
+                    <option value="BOTH">Both</option>
+                </select>
+            </label>
+            <label>Publish on Home Page
+                <select th:field="*{publishOnHome}">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </label>
+            <label>Description
+                <textarea th:field="*{description}" rows="3"></textarea>
+            </label>
+            <button class="btn primary" type="submit">Add Service</button>
+        </form>
+        <div class="grid services-grid">
+            <div class="card" th:each="svc : ${services}">
+                <h4 th:text="${svc.name}">Service</h4>
+                <p th:text="${svc.description}"></p>
+                <p><strong>Eligibility:</strong> <span th:text="${svc.eligibility}"></span></p>
+                <p><strong>Home Page:</strong> <span th:text="${svc.publishOnHome ? 'Yes' : 'No'}"></span></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>AI Usage Policy</h2>
+        <form class="form" th:action="@{/setup/install/policy}" th:object="${policy}" method="post">
+            <label>Title
+                <input type="text" th:field="*{title}" required />
+            </label>
+            <label>Summary
+                <textarea th:field="*{summary}" rows="3"></textarea>
+            </label>
+            <label>Full Policy Link
+                <input type="text" th:field="*{linkUrl}" placeholder="https://iti.gov.eg/..." />
+            </label>
+            <button class="btn primary" type="submit">Save Policy</button>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Learning Departments</h2>
+        <form class="form" th:action="@{/setup/install/departments}" th:object="${department}" method="post">
+            <label>Name
+                <input type="text" th:field="*{name}" required />
+            </label>
+            <label>Description
+                <input type="text" th:field="*{description}" />
+            </label>
+            <button class="btn primary" type="submit">Add Department</button>
+        </form>
+        <div class="grid">
+            <div class="card" th:each="dept : ${departments}">
+                <h4 th:text="${dept.name}"></h4>
+                <p th:text="${dept.description}"></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Prompt Library</h2>
+        <form class="form" th:action="@{/setup/install/prompts}" th:object="${prompt}" method="post">
+            <label>Title
+                <input type="text" th:field="*{title}" required />
+            </label>
+            <label>Prompt Text
+                <textarea th:field="*{promptText}" rows="3"></textarea>
+            </label>
+            <label>Department
+                <select name="departmentId" required>
+                    <option value="" disabled selected>Select department</option>
+                    <option th:each="dept : ${departments}" th:value="${dept.id}" th:text="${dept.name}"></option>
+                </select>
+            </label>
+            <button class="btn primary" type="submit">Add Prompt</button>
+        </form>
+        <div class="grid prompt-grid">
+            <div class="card" th:each="promptItem : ${prompts}">
+                <h4 th:text="${promptItem.title}"></h4>
+                <p th:text="${promptItem.promptText}"></p>
+                <p><strong>Department:</strong> <span th:text="${promptItem.department != null ? promptItem.department.name : 'General'}"></span></p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
