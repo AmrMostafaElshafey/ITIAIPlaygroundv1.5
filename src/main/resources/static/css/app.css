@@ -657,7 +657,7 @@ small {
     gap: 0.15rem;
 }
 
-.main-nav .nav-link {
+.main-nav .site-nav-link {
     color: #fff !important;
     display: inline-flex !important;
     align-items: center;
@@ -666,7 +666,7 @@ small {
     white-space: nowrap;
 }
 
-.nav-links-row .nav-link:last-child {
+.nav-links-row .site-nav-link:last-child {
     border-right: none;
 }
 
