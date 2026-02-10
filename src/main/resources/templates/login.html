@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Login')}" />
+<body class="theme-iti academy-page">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="academy-container container">
+    <section class="panel academy-hero shadow-sm">
+        <h1>Login</h1>
+        <p>Sign in to request AI services.</p>
+
+        <div class="notice" th:if="${error}">
+            <strong th:text="${error}"></strong>
+        </div>
+
+        <form class="form" th:action="@{/login}" method="post">
+            <label>Email Address
+                <input type="email" name="email" placeholder="name@iti.gov.eg" required />
+            </label>
+            <label>Password
+                <input type="password" name="password" placeholder="••••••••" required />
+            </label>
+            <label>Role
+                <select name="role" required>
+                    <option value="" disabled selected>Select role</option>
+                    <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                </select>
+            </label>
+            <button class="btn cta" type="submit">Sign In</button>
+        </form>
+    </section>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
