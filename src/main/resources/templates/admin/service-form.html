@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head('Service Form')}" />
+<body class="theme-iti">
+<div th:replace="~{fragments :: header}"></div>
+
+<main class="container narrow">
+    <h1 th:text="${service.id != null ? 'Edit Service' : 'New Service'}"></h1>
+    <form class="form" th:action="${service.id != null ? '/admin/services/' + service.id : '/admin/services'}" th:object="${service}" method="post">
+        <label>Service Name
+            <input type="text" th:field="*{name}" placeholder="AI Tutor" required />
+        </label>
+        <label>Service Owner
+            <select name="ownerId" required>
+                <option value="" disabled selected>Select owner</option>
+                <option th:each="owner : ${owners}"
+                        th:value="${owner.id}"
+                        th:text="${owner.fullName + ' • ' + owner.email}"
+                        th:selected="${service.owner != null and service.owner.id == owner.id}"></option>
+            </select>
+        </label>
+        <label>Service Type
+            <select name="serviceTypeId" required>
+                <option value="" disabled selected>Select service type</option>
+                <option th:each="type : ${serviceTypes}"
+                        th:value="${type.id}"
+                        th:text="${type.name}"
+                        th:selected="${service.serviceType != null and service.serviceType.id == type.id}"></option>
+            </select>
+        </label>
+        <label>Status
+            <input type="text" th:field="*{status}" placeholder="Active" />
+        </label>
+        <label>Eligibility
+            <select th:field="*{eligibility}">
+                <option value="STUDENT">Student</option>
+                <option value="STAFF">Staff</option>
+                <option value="BOTH">Both</option>
+            </select>
+        </label>
+        <label>Description
+            <textarea th:field="*{description}" rows="4" placeholder="Describe the service and its usage policy."></textarea>
+        </label>
+        <label>Publish on Home Page
+            <select th:field="*{publishOnHome}">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+        </label>
+        <button class="btn primary" type="submit">Save</button>
+        <a class="btn outline" th:href="@{/admin/services}">Cancel</a>
+    </form>
+</main>
+
+<div th:replace="~{fragments :: footer}"></div>
+</body>
+</html>
