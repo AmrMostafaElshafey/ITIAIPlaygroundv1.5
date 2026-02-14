@@ -66,6 +66,18 @@
             <p class="chart-legend">Total requests: <span th:text="${totalRequests}">0</span></p>
         </div>
     </section>
+
+    <section class="grid">
+        <div class="card">
+            <h2>Management Shortcuts</h2>
+            <div class="hero-actions">
+                <a class="btn outline" th:href="@{/admin/services}">Manage Services</a>
+                <a class="btn outline" th:href="@{/admin/registrations}">Registration Approvals</a>
+                <a class="btn outline" th:href="@{/admin/service-requests}">Service Request Reviews</a>
+                <a class="btn outline" th:href="@{/setup/install/users}">System Setup</a>
+            </div>
+        </div>
+    </section>
 </main>
 
 <div th:replace="~{fragments :: footer}"></div>

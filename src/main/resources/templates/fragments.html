@@ -32,18 +32,13 @@
             <a class="site-nav-link" th:href="@{/policy}">Policy</a>
             <a class="site-nav-link" th:href="@{/#prompt-library}">Prompt Library</a>
             <a class="site-nav-link" th:href="@{/#services}">Services</a>
-            <a class="site-nav-link" th:if="${session.loggedIn == true}" th:href="@{/service-requests/new}">Service Request</a>
+            <a class="site-nav-link" th:if="${session.loggedIn == true and session.userRole != 'ADMIN' and session.userRole != 'APPROVER'}" th:href="@{/service-requests/new}">Service Request</a>
             <a class="site-nav-link" th:if="${session.loggedIn != true}" th:href="@{/login}">Login/Register</a>
-            <a class="site-nav-link" th:if="${session.userRole == 'ADMIN'}" th:href="@{/admin/services}">Admin Services</a>
-            <a class="site-nav-link" th:if="${session.userRole == 'ADMIN'}" th:href="@{/admin/registrations}">Registration Approvals</a>
-            <a class="site-nav-link" th:if="${session.userRole == 'ADMIN'}" th:href="@{/admin/service-requests}">Service Requests</a>
-            <a class="site-nav-link" th:if="${session.userRole == 'APPROVER'}" th:href="@{/approver/registrations}">Approver Queue</a>
-            <a class="site-nav-link" th:if="${session.userRole == 'APPROVER'}" th:href="@{/approver/service-requests}">Approver Requests</a>
-            <a class="site-nav-link" th:if="${session.userRole == 'ADMIN'}" th:href="@{/dashboard/admin}">Admin Dashboard</a>
-            <a class="site-nav-link" th:if="${session.userRole == 'SERVICE_OWNER'}" th:href="@{/dashboard/service-owner}">Service Owner Dashboard</a>
-            <a class="site-nav-link" th:if="${session.loggedIn == true and (session.userRole == 'ADMIN' or session.userRole == 'SERVICE_OWNER')}" th:href="@{/setup}">Setup Wizard</a>
-            <a class="site-nav-link" th:if="${session.loggedIn == true and (session.userRole == 'ADMIN' or session.userRole == 'SERVICE_OWNER')}" th:href="@{/setup/services}">Service Setup</a>
-            <a class="site-nav-link" th:if="${session.loggedIn == true and (session.userRole == 'ADMIN' or session.userRole == 'SERVICE_OWNER')}" th:href="@{/setup/install/users}">Installation Wizard</a>
+            <a class="site-nav-link" th:if="${session.userRole == 'ADMIN'}" th:href="@{/dashboard/admin}">Admin Console</a>
+            <a class="site-nav-link" th:if="${session.userRole == 'APPROVER'}" th:href="@{/dashboard/approver}">Approver Console</a>
+            <a class="site-nav-link" th:if="${session.userRole == 'SERVICE_OWNER'}" th:href="@{/dashboard/service-owner}">Service Owner Console</a>
+            <a class="site-nav-link" th:if="${session.userRole == 'ADMIN'}" th:href="@{/setup/install/users}">System Setup</a>
+            <a class="site-nav-link" th:if="${session.userRole == 'SERVICE_OWNER'}" th:href="@{/setup/services}">System Setup</a>
         </div>
         <div class="theme-switcher">
             <label for="theme-select">Theme</label>
